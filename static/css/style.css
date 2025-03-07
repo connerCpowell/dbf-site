@@ -1,0 +1,149 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Helvetica", sans-serif;
+
+}
+
+body {
+	/* background-color: #fefbf5; */
+	background-color: #a7c7e7;
+	color: black;
+	font-size: 16px;
+	text-transform: uppercase;
+	display: flex;
+	margin: 0;
+
+}
+
+nav {
+	width: 100px;
+	height: 100vh;
+	display: flex;
+	background: black;
+	gap: 200px;
+	padding-top: 15px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	flex-direction: column;
+	align-items: right;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	transition: all 0.3s ease;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+nav a:hover {
+	color: yellow;
+	transform: scale(1.1);
+}
+
+.main-content {
+	margin-left: 220px;
+	width: calc(100% - 120px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 200px;
+
+}
+
+/*
+.gallery{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	justify-items: center;
+	width: 80%; 
+	max-width: 300px;
+} 
+
+
+.gallery-item{
+	width: 300px;
+	height: 500px;
+	overflow: hidden;
+	border: 3px solid black;
+}
+
+.gallery img {
+	width: 150px !important;
+	height: 300px !important;
+	max-width: 300px;
+	max-height: 500px;
+	display: block;
+	object-fit: scale-down;
+	border: 5px solid red;
+	float: left;
+}
+
+.gallery-item img {
+	/* width: 100%;
+	height: 100%; 
+	width: 50%;
+	object-fit: scale-down;
+	transition: transform 0.3s ease;
+}
+
+
+.gallery-item:hover img{
+	transform: scale(1.1);
+}
+
+*/
+
+h1 {
+	font-family: 'Bungee Shade', monospace;
+	text-align: center;
+	font-size: 35px;
+}
+
+p {
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	font-size: 15px;
+}
+
+button {
+	background: none;
+	border: 2px solid black;
+	padding: 10px 20px;
+	font-size: 18px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+button:hover {
+	background: yellow;
+	transform: rotate(-3degs);
+}
+
+.content img {
+	width: 500px;
+	height: 800px;
+	object-fit: contain;
+}
+
+
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #333;
+	/* Optional: Change background */
+	color: white;
+	/* Optional: Change text color */
+	text-align: center;
+	padding: 10px 0;
+}

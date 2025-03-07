@@ -1,0 +1,9 @@
+*.log
+*.pyc
+*.swp
+__pychache__/
+hostVM/
+static/pics/
+subscribers.txt
+.well-known/
+

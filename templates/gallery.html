@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1> Emotinal problem solving w/ PP </h1>
+<!-- div id="gallery" -->
+	<div class="content">
+	{% for image in images %}
+		<a href="{{ url_for('static', filename='pics/' + image) }}" target="_blank">
+			<img src="{{ url_for('static', filename='pics/' + image) }}" alt="art">
+		</a>
+	{% endfor %}
+	</div>
+<!-- /div -->		
+{% endblock %}

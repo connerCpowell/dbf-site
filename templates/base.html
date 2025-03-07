@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- title>{% block title%}  YUCK! {% endblock %} </title -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+</head>
+
+
+
+<body>
+
+	<nav>
+		<a href="/">Home</a>
+		<a href="/gallery">the stall</a>
+		<!-- a href="/about">About</a -->
+		<!-- a href="/newsletter">Keep up</a -->
+	</nav>
+
+	<div class="main-content">
+		{% block content %}{% endblock%}
+	</div>
+
+
+</body>
+
+</html>
