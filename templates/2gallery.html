@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1> Emotinal problem solving w/ PP </h1>
+
+<div class="content" id="gallery">
+	{% for image in images %}
+	<a href="{{ url_for('static', filename='pics/' + image) }}" target="_blank">
+		<img src="{{ url_for('static', filename='pics/' + image) }}" alt="ah craap!">
+	</a>
+	{% endfor %}
+</div>
+
+<div id='loading'>Loading more crap...</div>
+<div id="load_trigger"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	let page = 1;
+	let loading = false;
+
+	function loadMoreImages() {
+		if (loading) return;
+		loading = true;
+		document.getElementById('loading').style.display = 'block';
+
+		fetch(`/gallery/load_more?page=${page}`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.images.length === 0) {
+					document.getElementById('loading').textContent = "fin";
+					observer.disconnect();
+				} else {
+					const container = document.getElementById('gallery');
+					data.images.forEach(imgUrl => {
+						let newImg = document.createElement('img');
+						newImg.src = imgUrl;
+						newImg.alt = "bing bop boom";
+						container.appendChild(newImg);
+					});
+					page++;
+				}
+				document.getElementById('loading').style.display = 'none';
+				loading = false;
+			});
+            .catch (error => {
+			console.error("Error loading:", error);
+			document.getElementById('loading').style.display = "none";
+			loading = false;
+		});
+	}
+
+	function checkScroll() {
+		const trigger = document.getElementById('load_trigger');
+		const rect = trigger.getBoundingClientRect();
+		if (rect.top < window.innerHeight) {
+			loadMoreImages();
+		}
+	}
+
+	window.addEventListener('scroll', checkScroll);
+</script>
+{% endblock %}

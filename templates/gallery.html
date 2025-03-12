@@ -1,15 +1,32 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<h1> Emotinal problem solving w/ PP </h1>
-<!-- div id="gallery" -->
-	<div class="content">
-	{% for image in images %}
-		<a href="{{ url_for('static', filename='pics/' + image) }}" target="_blank">
-			<img src="{{ url_for('static', filename='pics/' + image) }}" alt="art">
-		</a>
-	{% endfor %}
-	</div>
-<!-- /div -->		
+<h1> Emotional Problem Solving w/ PP </h1>
+
+<!-- Content -->
+<div class="content" id="gallery">
+    {% for image in images %}
+    <a href="{{ url_for('static', filename='pics/' + image) }}" target="_blank">
+        <img src="{{ url_for('static', filename='pics/' + image) }}" alt="image">
+    </a>
+    {% endfor %}
+</div>
+
+<!-- Button -->
+<button id="load_more_button">Load More</button>
+<div id="loading" style="display: none;">Loading more images...</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Minimal test script to check if JS is working
+    window.onload = function () {
+        console.log("Page has fully loaded!");
+    };
+
+    document.getElementById('load_more_button').addEventListener('click', function () {
+        console.log("Load More button clicked!");
+    });
+</script>
 {% endblock %}
