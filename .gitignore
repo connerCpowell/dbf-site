@@ -6,4 +6,4 @@ hostVM/
 static/pics/
 subscribers.txt
 .well-known/
-
+*.db

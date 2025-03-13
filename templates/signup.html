@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1> MIDS MAILING LIST </h1>
+
+
+<form id="emailForm">
+	<input type="email" id="emailInput" name="email" placeholder="yo email here&lt;3" required>
+	<button type="submit">Tap in</button>
+</form>
+
+<p id="message"></p>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+	console.log("JavaScript loaded successfully!");
+
+	document.getElementById("emailForm").addEventListener("submit", async function (event) {
+		event.preventDefault();
+		console.log("Form submitted");
+		const email = document.getElementById("emailInput").value;
+		console.log("Email entered:", email);
+
+		try {
+			console.log("Sending request to /subscribe");
+
+			const response = await fetch("{{ url_for('subscribe') }}", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email: email })
+			});
+
+			console.log("Response status:", response.status);
+			const data = await response.json();
+			console.log("Server response:", data);
+
+			document.getElementById("message").textContent = data.message;
+		} catch (error) {
+			console.error("Error:", error);
+			document.getElementById("message").textContent = "Something went wrong. Please try again.";
+		}
+	});	
+</script>
+{% endblock %}

@@ -17,12 +17,17 @@
 		<a href="/">Home</a>
 		<a href="/gallery">the stall</a>
 		<!-- a href="/about">About</a -->
-		<!-- a href="/newsletter">Keep up</a -->
+		<a href="/signup">Keep up</a>
 	</nav>
 
 	<div class="main-content">
 		{% block content %}{% endblock%}
 	</div>
+
+	<script>
+		console.log("Testing inline JavaScript directly in the HTML");
+	</script>
+	{% block scripts %}{% endblock %}
 
 
 </body>
