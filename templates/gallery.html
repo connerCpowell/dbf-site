@@ -20,13 +20,49 @@
 
 {% block scripts %}
 <script>
-    // Minimal test script to check if JS is working
-    window.onload = function () {
-        console.log("Page has fully loaded!");
-    };
+    let page = 1;  // Track which page of images we're on
+    const loadingDiv = document.getElementById('loading');
+    const loadMoreButton = document.getElementById('load_more_button');
 
-    document.getElementById('load_more_button').addEventListener('click', function () {
-        console.log("Load More button clicked!");
+    loadMoreButton.addEventListener('click', function () {
+        loadingDiv.style.display = 'block';  // Show loading message
+        loadMoreButton.disabled = true;  // Disable button while loading
+
+        // Make AJAX request to fetch more images
+        fetch(`/gallery/load_more?page=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.images && data.images.length > 0) {
+                    const gallery = document.getElementById('gallery');
+
+                    // Add each new image to the gallery
+                    data.images.forEach(image => {
+                        const link = document.createElement('a');
+                        link.href = `/static/pics/${image}`;
+                        link.target = '_blank';
+
+                        const img = document.createElement('img');
+                        img.src = `/static/pics/${image}`;
+                        img.alt = 'image';
+
+                        link.appendChild(img);
+                        gallery.appendChild(link);
+                    });
+
+                    page += 1;  // Increment page counter
+                }
+
+                if (!data.has_more) {
+                    loadMoreButton.style.display = 'none';  // Hide button if no more images
+                }
+            })
+            .catch(error => {
+                console.error('Error loading more images:', error);
+            })
+            .finally(() => {
+                loadingDiv.style.display = 'none';  // Hide loading message
+                loadMoreButton.disabled = false;  // Re-enable button
+            });
     });
 </script>
 {% endblock %}

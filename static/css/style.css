@@ -106,12 +106,14 @@ h1 {
 	font-family: 'Bungee Shade', monospace;
 	text-align: center;
 	font-size: 35px;
+	margin-bottom: 1rem;
 }
 
 p {
 	font-family: 'Roboto', sans-serif;
 	text-align: center;
 	font-size: 15px;
+	margin-bottom: 2rem;
 }
 
 button {
@@ -146,4 +148,20 @@ footer {
 	/* Optional: Change text color */
 	text-align: center;
 	padding: 10px 0;
+}
+
+
+#emailForm {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#emailInput {
+	width: 100%;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
 }
