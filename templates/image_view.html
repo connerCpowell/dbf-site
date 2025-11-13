@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ filename }}{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ filename }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="image-view">
+    <h2>{{ filename }}</h2>
+    <img id="photo" src="{{ url_for('static', filename='pics/' + filepath) }}" alt="Image">
+
+    <div class="controls">
+        <button onclick="rotate(-90)">Rotate</button>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        let rotation = 0;
+
+        function rotate(amount) {
+            rotation += amount;
+            document.getElementById("photo").style.transform = `rotate(${rotation}deg)`;
+        }
+
+        function goBack() {
+            // Prefer going back to gallery route explicitly if history fails
+            if (document.referrer && document.referrer !== window.location.href) {
+                window.history.back();
+            } else {
+                window.location.href = "{{ url_for('gallery') }}"; // fallback if no referrer
+            }
+        }
+    </script>
+
+    {% endblock %}
+</body>
+
+</html>

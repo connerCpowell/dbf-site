@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Image Viewer</h2>
+
+<div style="text-align:center;">
+    <img id="mainImage" src="{{ url_for('static', filename='pics/' + image_path) }}"
+        style="max-width:100%; transform-origin: center center; transition: transform 0.2s;" />
+
+    <div style="margin-top: 20px;">
+        <button onclick="rotate(-90)">⟲ Rotate Left</button>
+        <button onclick="rotate(90)">⟳ Rotate Right</button>
+        <!-- <a href="{{ url_for('static', filename='pics/' + image_path) }}" download>
+            <button>⬇ Download</button> -->
+        </a>
+    </div>
+</div>
+
+<script>
+    let rotation = 0;
+
+    function rotate(amount) {
+        rotation += amount;
+        document.getElementById("mainImage").style.transform = `rotate(${rotation}deg)`;
+    }
+</script>
+{% endblock %}

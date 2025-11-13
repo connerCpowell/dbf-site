@@ -1,68 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1> Emotional Problem Solving w/ PP </h1>
+<h1> Gallery</h1>
 
-<!-- Content -->
-<div class="content" id="gallery">
-    {% for image in images %}
-    <a href="{{ url_for('static', filename='pics/' + image) }}" target="_blank">
-        <img src="{{ url_for('static', filename='pics/' + image) }}" alt="image">
-    </a>
-    {% endfor %}
-</div>
+<div class="content" id="gallery"></div>
 
-<!-- Button -->
 <button id="load_more_button">Load More</button>
-<div id="loading" style="display: none;">Loading more images...</div>
+<div id="loading" style="display:none;">Loading...</div>
 
+<style>
+    #gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    #gallery img {
+        max-width: 300px;
+        height: auto;
+    }
+</style>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    let page = 1;  // Track which page of images we're on
+    let page = 1;
     const loadingDiv = document.getElementById('loading');
     const loadMoreButton = document.getElementById('load_more_button');
 
-    loadMoreButton.addEventListener('click', function () {
-        loadingDiv.style.display = 'block';  // Show loading message
-        loadMoreButton.disabled = true;  // Disable button while loading
+    function loadMore() {
+        loadingDiv.style.display = 'block';
+        loadMoreButton.disabled = true;
 
-        // Make AJAX request to fetch more images
         fetch(`/gallery/load_more?page=${page}`)
             .then(response => response.json())
             .then(data => {
-                if (data.images && data.images.length > 0) {
-                    const gallery = document.getElementById('gallery');
+                const gallery = document.getElementById('gallery');
 
-                    // Add each new image to the gallery
-                    data.images.forEach(image => {
-                        const link = document.createElement('a');
-                        link.href = `/static/pics/${image}`;
-                        link.target = '_blank';
+                data.images.forEach(imgUrl => {
+                    const link = document.createElement('a');
+                    // link.href = imgUrl;
+                    const relativePath = new URL(imgUrl, window.location.origin).pathname.replace("/static/pics/", "");
+                    link.href = `/view/${relativePath}`;
+                    link.target = "_blank";
 
-                        const img = document.createElement('img');
-                        img.src = `/static/pics/${image}`;
-                        img.alt = 'image';
+                    const img = document.createElement('img');
+                    img.src = imgUrl;
 
-                        link.appendChild(img);
-                        gallery.appendChild(link);
-                    });
-
-                    page += 1;  // Increment page counter
-                }
+                    link.appendChild(img);
+                    gallery.appendChild(link);
+                });
 
                 if (!data.has_more) {
-                    loadMoreButton.style.display = 'none';  // Hide button if no more images
+                    loadMoreButton.style.display = 'none';
+                } else {
+                    page += 1;
                 }
             })
-            .catch(error => {
-                console.error('Error loading more images:', error);
-            })
             .finally(() => {
-                loadingDiv.style.display = 'none';  // Hide loading message
-                loadMoreButton.disabled = false;  // Re-enable button
+                loadingDiv.style.display = 'none';
+                loadMoreButton.disabled = false;
             });
-    });
+    }
+
+    loadMoreButton.addEventListener('click', loadMore);
+    loadMore();
 </script>
 {% endblock %}
