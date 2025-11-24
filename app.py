@@ -109,10 +109,28 @@ def load_more():
 def image_page(filename):
     display_name = filename.split("/")[-1]
     name_wo_ext = os.path.splitext(display_name)[0]
+
     return render_template(
         "image_view.html",
         filename=name_wo_ext,
         filepath=filename
+    )
+
+def view_image(cdfilename):
+    pics_dir = os.path.join(app.static_folder, "pics")
+    images = sorted(os.listdir(pics_dir))
+
+    index = images.index(filename)
+
+    prev_img = images[index - 1] if index > 0 else None
+    next_img = images[index + 1] if index < len(images) - 1 else None
+
+    return render_template(
+        "image_view.html",
+        filename=filename,
+        filepath=filename,
+        prev_img=prev_img,
+        next_img=next_img
     )
 
 @app.route("/signup", methods=["GET"])

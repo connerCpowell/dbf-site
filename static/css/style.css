@@ -1,202 +1,205 @@
+/* Reset + Base */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-family: "Helvetica", sans-serif;
-
 }
 
 body {
-	/* background-color: #fefbf5; */
 	background-color: #a7c7e7;
 	color: black;
-	font-size: 16px;
-	text-transform: uppercase;
+	font-size: 1rem;
 	display: flex;
-	margin: 0;
-
 }
 
+/* ------------------------------------------
+   NAVIGATION (Desktop)
+-------------------------------------------*/
 nav {
-	width: 100px;
+	width: 120px;
 	height: 100vh;
-	display: flex;
 	background: black;
-	gap: 200px;
-	padding-top: 15px;
+	padding-top: 1rem;
 	position: fixed;
 	left: 0;
 	top: 0;
+	display: flex;
 	flex-direction: column;
-	align-items: right;
+	gap: 2rem;
 }
 
 nav a {
 	color: white;
 	text-decoration: none;
-	font-size: 20px;
+	font-size: 1.1rem;
 	font-weight: bold;
-	transition: all 0.3s ease;
-	display: block;
-	width: 100%;
 	text-align: center;
+	transition: 0.3s;
 }
 
 nav a:hover {
 	color: yellow;
-	transform: scale(1.1);
+	transform: scale(1.05);
 }
 
+/* ------------------------------------------
+   MAIN CONTENT
+-------------------------------------------*/
 .main-content {
-	margin-left: 220px;
-	/*width: calc(100% - 120px);*/
-	width: 80%;
+	margin-left: 140px;
+	/* enough for nav */
+	width: calc(100% - 140px);
+	max-width: 9000px;
+	padding: 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	padding: 200px;
-
 }
 
+/* IMAGES */
 .gallery {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 12px;
+	gap: 0.8rem;
+	justify-content: center;
 }
 
 .gallery img {
-	width: 200px;
+	width: min(180px, 40vw);
 	border-radius: 8px;
 	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-
+/* HEADERS + TEXT (no all caps) */
 h1 {
-	font-family: 'Bungee Shade', monospace;
-	text-align: center;
-	font-size: 35px;
+	font-size: 2.2rem;
 	margin-bottom: 1rem;
+	font-family: 'Bungee Shade', monospace;
+}
+
+h2 {
+	font-size: 1.2rem;
+	margin-bottom: 1rem;
+	font-family: 'Roboto', sans-serif;
 }
 
 p {
+	font-size: 1rem;
+	margin-bottom: 1.5rem;
 	font-family: 'Roboto', sans-serif;
-	text-align: center;
-	font-size: 15px;
-	margin-bottom: 2rem;
 }
 
+/* BUTTONS */
 button {
-	background: none;
+	background: #ff6600;
 	border: 2px solid black;
-	padding: 10px 20px;
-	font-size: 18px;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
 	cursor: pointer;
 	transition: 0.3s;
 }
 
 button:hover {
 	background: yellow;
-	transform: rotate(-3degs);
+	transform: rotate(-3deg);
 }
 
-.content img {
-	width: 500px;
-	height: 800px;
+/* FULL IMAGE VIEW */
+body.image-view {
+	background-color: #000102;
+	text-align: center;
+}
+
+body.image-view h2 {
+	font-size: 55px;
+	color: #ff6600;
+	/* already orange-ish */
+}
+
+
+body.image-view img {
+	max-width: 95vw;
+	max-height: 85vh;
+	border-radius: 12px;
 	object-fit: contain;
+	box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
 }
 
 
+.image-container {
+	width: 100%;
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
 
+#photo {
+	transition: transform 0.2s ease;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+
+/* ------------------------------------------
+   FOOTER
+-------------------------------------------*/
 footer {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
 	background-color: #333;
-	/* Optional: Change background */
 	color: white;
-	/* Optional: Change text color */
 	text-align: center;
-	padding: 10px 0;
+	padding: 0.7rem 0;
 }
 
+/* ------------------------------------------
+   MOBILE RESPONSIVE FIXES
+-------------------------------------------*/
+@media (max-width: 768px) {
 
-#emailForm {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-#emailInput {
-	width: 100%;
-}
-
-.button-container {
-	display: flex;
-	justify-content: center;
-}
-
-
-/* ------------------ Image View Page ------------------ */
-
-body.image-view {
-	font-family: Arial, sans-serif;
-	background-color: #000102;
-	text-align: center;
-	margin: 0;
-	padding: 0;
-}
-
-body.image-view h2 {
-	margin: 20px 0;
-	font-size: 55px;
-	color: #ff6600;
-	word-wrap: break-word;
-	max-width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-body.image-view img {
-	max-width: 95vw;
-	max-height: 85vh;
-	object-fit: contain;
-	border-radius: 12px;
-	box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-
-body.image-view .controls {
-	margin-top: 15px;
-}
-
-body.image-view button {
-	background-color: #ff6600;
-	font-size: 16px;
-	padding: 8px 14px;
-	border-radius: 6px;
-	border: none;
-	cursor: pointer;
-}
-
-
-body.image-view button:hover {
-	background-color: #e65c00;
-	/* darker on hover */
-}
-
-/* 📱 Mobile adjustments */
-@media (max-width: 600px) {
-	.main-image {
-		max-width: 95%;
-		max-height: 70vh;
+	nav {
+		width: 70px;
+		gap: 1rem;
 	}
 
-	.button-row {
-		flex-direction: column;
-		align-items: center;
+	nav a {
+		font-size: 0.85rem;
 	}
 
-	.btn {
-		width: 80%;
+	.main-content {
+		margin-left: 80px;
+		padding: 1rem;
+	}
+}
+
+@media (max-width: 500px) {
+
+	nav {
+		height: auto;
+		width: 100%;
+		position: relative;
+		flex-direction: row;
+		justify-content: space-around;
+		padding: 0.5rem 0;
+	}
+
+	nav a {
+		font-size: 0.9rem;
+	}
+
+	.main-content {
+		margin-left: 0;
+		margin-top: 70px;
+		width: 100%;
+		padding: 1rem;
+	}
+
+	.gallery img {
+		width: 45vw;
 	}
 }
