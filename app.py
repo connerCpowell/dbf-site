@@ -110,28 +110,35 @@ def image_page(filename):
     display_name = filename.split("/")[-1]
     name_wo_ext = os.path.splitext(display_name)[0]
 
+    # Build prev/next navigation based on the list of images.
+    # `get_images()` returns paths like 'pics/2025-01/JOE.jpg', but the
+    # route `filename` parameter is '2025-01/JOE.jpg'. Normalize by
+    # stripping the leading 'pics/' so we can compare and return
+    # prev/next in the same form the route expects.
+    images = get_images()
+    normalized = [p[5:] if p.startswith('pics/') else p for p in images]
+
+    prev_img = None
+    next_img = None
+    try:
+        idx = normalized.index(filename)
+        if idx > 0:
+            prev_img = normalized[idx - 1]
+        if idx < len(normalized) - 1:
+            next_img = normalized[idx + 1]
+    except ValueError:
+        # filename not found in list -- keep prev/next as None
+        pass
+
     return render_template(
         "image_view.html",
         filename=name_wo_ext,
-        filepath=filename
-    )
-
-def view_image(cdfilename):
-    pics_dir = os.path.join(app.static_folder, "pics")
-    images = sorted(os.listdir(pics_dir))
-
-    index = images.index(filename)
-
-    prev_img = images[index - 1] if index > 0 else None
-    next_img = images[index + 1] if index < len(images) - 1 else None
-
-    return render_template(
-        "image_view.html",
-        filename=filename,
         filepath=filename,
         prev_img=prev_img,
         next_img=next_img
     )
+
+# legacy/unused helper removed
 
 @app.route("/signup", methods=["GET"])
 def signup():
